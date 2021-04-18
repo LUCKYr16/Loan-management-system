@@ -8,10 +8,11 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 #creating router object
 router = DefaultRouter()
-
+router2 = DefaultRouter()
 
 #Register ClientViewSet with Router
 router.register('clientapi', views.ClientModelViewSet, basename='client')
+router2.register('loanapi', views.LoanModelViewSet, basename='loan')
 
 
 urlpatterns = [
@@ -19,5 +20,6 @@ urlpatterns = [
     path('',include('loan.urls')),
     path('accounts/',include('accounts.urls')),
     path('', include(router.urls)),
+    path('', include(router2.urls)),
     #path('gettoken/', obtain_auth_token)
 ]

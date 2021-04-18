@@ -28,14 +28,20 @@ def register(request):
         password1 = request.POST['password1']
         password2 = request.POST['password2']
         email = request.POST['email']
+        role = request.POST['role']
 
         if password1==password2:
             if User.objects.filter(username=username).exists():
                 messages.info(request,'Username taken')
             elif User.objects.filter(email=email).exists():
                 messages.info(request,'email already exists')
+            elif role=='Agent':
+                user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,role=role,is_active=False)
+                user.save();
+                return redirect('login')
+                           
             else:
-                user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name)
+                user = User.objects.create_user(username=username,password=password1,email=email,first_name=first_name,last_name=last_name,role=role)
                 user.save();
                 return redirect('login')
         else:
