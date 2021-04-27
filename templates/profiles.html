@@ -1,0 +1,50 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
+<link rel="stylesheet" href="{% static 'css/tables.css' %}">
+<section>
+    <!--for demo wrap-->
+    <h1>Customer Profiles</h1>
+    
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Username</th>
+            <th>Phone</th>
+            <th>Street Address</th>
+            <th>Zip_code</th>
+            <th>City</th>
+            <th>Country </th>
+            <th>Requests</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          
+          {% for i in profiles %} 
+         
+         
+            <td>{{i.user}}</td>
+            <td>{{i.phone}}</td>
+            <td>{{i.street_address}} </td>
+            <td>{{i.zip_code}}</td>
+            <td>{{i.city}}</td>
+            <td>{{i.country}}</td>
+            <td><a href="loanrequests?customer={{i.id}}">{{'See Loan Requests'}}</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  
+  <!-- follow me template -->
+  <div class="made-with-love">
+    Made with
+    <i>♥</i> by
+    <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
+  </div>

@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="login-form">
+    {% if form.errors %}
+    <p>Your username and password didn't match. Please try again.</p>
+    {% endif %}
+
+    <form method="post" >
+        {% csrf_token %}
+        <h2 class="text-center">Log in</h2>       
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+        </div>
+        <div class="form-group">
+          {{ form.password.label_tag }}
+            {{ form.password }}
+        </div>
+        <div class="form-group">
+            <input id='login-button' type="submit" value="login" class='btn btn-primary btn-block' />
+            <input type="hidden" name="next" value="{{ next }}" />
+        </div>
+        <div class="clearfix">
+          <!---<label class="float-left form-check-label"><input type="checkbox"> Remember me</label>-->
+            <a href="#">Forgot your password?</a>
+        </div>        
+    </form>
+    <p class="text-center"><a href="#">Create an Account</a></p>
+</div>
+{% endblock %}

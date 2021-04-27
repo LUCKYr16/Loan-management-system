@@ -6,11 +6,11 @@
 
 <!--Register--> 
 <div class="container py-5">
-	<h1>Register</h1>
-	<form action="register" method="POST">
+	<h1>Loan application</h1>
+	<form action="" method="POST">
 		{% csrf_token %}
-		{{ register_form|crispy }}                    
-		<button class="btn btn-primary" type="submit">Register</button>
+		{{ loan_form|crispy }}                    
+		<button class="btn btn-primary" type="submit">Apply</button>
 	</form>
   {% if register_form.errors %}
     {% for field in register_form %}
@@ -19,7 +19,7 @@
         {% endfor %}
     {% endfor %}
 {% endif %}
-	<p class="text-center">If you already have an account, <a href="/login">login</a> instead.</p>
+	
 </div>
 
 

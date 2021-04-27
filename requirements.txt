@@ -1,0 +1,6 @@
+django
+django-rest-framework
+psycopg2
+python-dateutil
+django-countries
+django-crispy-forms

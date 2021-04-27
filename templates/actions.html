@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %} 
+
+{% if user.is_customer%}
+<button class="button button1"><a href="show">Profile</a></button><br>
+{%else%}
+<button class="button button1"><a href="api/customers">All profiles</a></button><br>
+{%endif%}
+<button class="button button1"><a href="api/loan-requests">Loan Requests</a></button>
+
+{% endblock %}

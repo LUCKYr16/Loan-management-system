@@ -1,0 +1,52 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/table.css' %}">
+<link rel="stylesheet" href="{% static 'css/tables.css' %}">
+<section>
+    <!--for demo wrap-->
+    <h1>Loan Requests</h1>
+    
+    <div class="tbl-header">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <thead>
+          <tr>
+            <th>Customer</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Tenure</th>
+            <th>Interest Rate</th>
+            <th>Emi</th>
+            <th>Start date</th>
+            <th>End date</th>
+          </tr>
+        </thead>
+      </table>
+    </div>
+    <div class="tbl-content">
+      <table cellpadding="0" cellspacing="0" border="0">
+        <tbody>
+          
+          {% for i in loanrequests %} 
+         
+            <td>{{i.customer}}</td>
+            <td>{{i.loan_type}}</td>
+            <td>{{i.amount}}</td>
+            <td>{{i.tenure}} </td>
+            <td>{{i.interest_rate}}</td>
+            <td>{{i.emi}}</td>
+            <td>{{i.start_date}}</td>
+            <td>{{i.end_date}}</td>
+            
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
+  
+  <!-- follow me template -->
+  <div class="made-with-love">
+    Made with
+    <i>♥</i> by
+    <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
+  </div>
