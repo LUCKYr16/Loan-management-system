@@ -14,11 +14,12 @@ class NewUserForm(UserCreationForm):
     zip_code = forms.CharField(required=True)
     city = forms.CharField(required=True)
     country= CountryField().formfield()
-
+    first_name= forms.CharField(required=True)
+    last_name= forms.CharField(required=True)
 
     class Meta:
         model = User
-        fields = (
+        fields = ("first_name", "last_name",
             "username", "email", "password1",
             "password2", "role", "phone", "street_address",
             "zip_code", "city", "country"
@@ -75,8 +76,3 @@ class LoanInputForm(ModelForm):
         loan.customer = customer
         if commit:
             loan.save()
-    
-
-
-  
-    

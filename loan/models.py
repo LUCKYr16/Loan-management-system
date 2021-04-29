@@ -6,7 +6,7 @@ from django.conf import settings
 from django_countries.fields import CountryField
 from dateutil.relativedelta import relativedelta
 from django.forms import ModelForm
-#from model_utils import FieldTracker 
+from model_utils import FieldTracker 
 
 TYPE =   [('house', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')]
 
@@ -16,6 +16,8 @@ STATUS = [('new','New'),('rejected','Rejeted'),('approved', 'Approved')]
 class User(AbstractUser):
     is_agent = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
+    first_name = models.CharField(max_length=150)
+    last_name = models.CharField(max_length=150)
 
     def is_admin(self):
         return self.is_superuser | bool(self.groups.filter(name__in=["Admin"]))
@@ -48,9 +50,13 @@ class Loan(BaseModel):
     end_date = models.DateTimeField(null=True, blank=True)
     principal_amount = models.DecimalField(max_digits=20, decimal_places=10, null=True, blank=True)
     status = models.CharField(max_length=50, choices= STATUS,default ='new')
+    amount_paid = models.DecimalField(
+        max_digits=20, decimal_places=10, null=True, blank=True
+    )
+    no_of_emi_left = models.IntegerField(null=True, blank=True)
 
-    #tracker = FieldTracker()
-    
+    tracker = FieldTracker()
+
     def __str__(self):
         return "Loan Request for %s" % self.customer.user.first_name
 
@@ -59,17 +65,15 @@ class Loan(BaseModel):
             self.start_date = timezone.now()
             self.end_date = timezone.now() + relativedelta(months=self.tenure)
             self.principal_amount = self.amount
-        if self.status == "approved":
+            self.no_of_emi_left = self.tenure
+        if self.amount_paid:
+            self.no_of_emi_left = self.tenure - 1
+            self.principal_amount = self.amount - self.amount_paid
+        if self.status == "approved" and self.tracker.has_changed("principal_amount"):
             self.emi = self.calculate_emi()
         return super(Loan, self).save(*args, **kwargs)
 
     def calculate_emi(self):
-        amount = self.principal_amount
-        i = ((self.amount)*(self.interest_rate)*(self.tenure))/(12*100)
-        emi = (self.amount + i)/12
+        i = (self.principal_amount)*(self.interest_rate)*(self.tenure)/(12*100)
+        emi = (self.principal_amount + i)/self.tenure
         return emi
-
-
-
-
-    

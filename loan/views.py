@@ -102,7 +102,8 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
     permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
     filter_backends = [SearchFilter,DjangoFilterBackend,OrderingFilter]
     search_fields = ['city']
-    filterset_fields = ['city','country']
+    filterset_fields = ['city','country','user']
+
     def get_queryset(self):
         """
         Show all customers to agent and show customer only their
@@ -110,7 +111,6 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
         """
         user = self.request.user
         queryset = super().get_queryset()
-      
         if user.is_authenticated and (user.is_admin() or user.is_agent):
             return queryset
 
@@ -119,8 +119,9 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
 class LoanModelViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
-    permission_classes = [CanEditLoanRequest, IsAuthenticated] 
-     
+    permission_classes = [CanEditLoanRequest, IsAuthenticated]
+    filter_backends = [SearchFilter,DjangoFilterBackend,OrderingFilter]
+    filterset_fields = ['id']
     def get_queryset(self):
         """
         Show all loan-requests to agent and show customer only their
@@ -146,26 +147,31 @@ def applyloanview(request):
     form = LoanInputForm
     return render(request=request, template_name="applyloan.html", context={"loan_form":form})
 
-
-def actions(request):
-    return render(request,'actions.html')
-
-
-
-def userprofile(request):
+def my_profile(request):
     user = request.user
-    
+
     return render(request,'userprofile.html',context={'user':user})
 
 def viewprofiles(request):
     profiles = CustomerProfile.objects.all()
-    
-    return render(request, 'profiles.html', context={'profiles':profiles})
+
+    return render(request, 'profiles.html', context={'profiles': profiles})
 
 
-def loanrequests(request):
-    if request.GET.get('customer'):
+def loan_requests(request):
+    if request.user.is_customer:
+        loanrequests = Loan.objects.filter(customer=request.user.customer.id)
+
+    elif request.GET.get('customer'):
         loanrequests = Loan.objects.filter(customer=request.GET.get('customer'))
     else:
         loanrequests = Loan.objects.all()
+    
     return render(request, 'loanreq.html', context={'loanrequests':loanrequests})
+
+
+
+def getdata(request):
+    r = requests.get("http://127.0.0.1:8000/api/customers").json()
+    print(r)
+    return render(request, 'actions.html')

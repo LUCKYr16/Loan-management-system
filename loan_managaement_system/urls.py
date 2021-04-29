@@ -12,18 +12,18 @@ router.register(r'loan-requests', views.LoanModelViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('get/', views.getdata),
     path('', include('loan.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('actions/api/', include(router.urls)),
+    path('customer-profiles/api/', include(router.urls)),
     path(
         'api-auth/',
         include('rest_framework.urls', namespace='rest_framework')
     ),
     path("register", views.register_request, name="register"),
     path("applyloan/", views.applyloanview,name='applyloan'),
-    path("actions/", views.actions, name='action'),
-    path('actions/show/',views.userprofile, name = 'userprofile'),
-    path('profile/',views.viewprofiles, name='table'),
-    path('profile/loanrequests',views.loanrequests, name='loanreq'),
+    path('customer-profiles/',views.viewprofiles, name='profile'),
+    path('customer-profiles/loan-requests', views.loan_requests, name='loan-requests'),
+    path('my-profile/',views.my_profile, name='my-profile'),
     #path('gettoken/', obtain_auth_token)
 ]

@@ -1,20 +1,54 @@
 {% extends 'base.html' %}
 
 {% block content %}
-  <div class="login-form">
+<style>
+  
+  .container{
+    top: 100px;
+  }
+  
+  .center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  border: none;
+  
+  }
+  input[type=text],input[type=password] {
+    width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  
+  }
+  input[type=button], input[type=submit], input[type=reset]{
+  background-color: blue;
+  width: 100%;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+  
+  </style>
+   <div class="container">
+  <div class="center">
+  <div class="login-form" style = "position:relative; left:14px; top:250px;">
     {% if form.errors %}
     <p>Your username and password didn't match. Please try again.</p>
     {% endif %}
 
     <form method="post" >
         {% csrf_token %}
-        <h2 class="text-center">Log in</h2>       
+        <h1 class="text-center" style="color:antiquewhite;">Log in</h1>    <br><br>   
         <div class="form-group">
-            {{ form.username.label_tag }}
+            <h5 style="color:antiquewhite;">{{ form.username.label_tag }}</h5>
             {{ form.username }}
         </div>
         <div class="form-group">
-          {{ form.password.label_tag }}
+          <h5 style="color:antiquewhite;">{{ form.password.label_tag }}</h5>
             {{ form.password }}
         </div>
         <div class="form-group">
@@ -23,9 +57,11 @@
         </div>
         <div class="clearfix">
           <!---<label class="float-left form-check-label"><input type="checkbox"> Remember me</label>-->
-            <a href="#">Forgot your password?</a>
+          <a href="{% url 'password_reset' %}"><h6 class ="text-centre" style="color:antiquewhite" >Forgot your password?</h6></a>
         </div>        
     </form>
-    <p class="text-center"><a href="#">Create an Account</a></p>
+    <a href="{% url 'register' %}"><h3 class="text-center" style="color:antiquewhite">Create an Account</h3></a>
+</div>
+</div>
 </div>
 {% endblock %}

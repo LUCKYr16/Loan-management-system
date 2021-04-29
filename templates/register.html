@@ -1,12 +1,30 @@
-{% extends "base.html" %}
 
-{% block content %} 
 
-{% load crispy_forms_tags %}         
+
+{% load crispy_forms_tags %}   
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+	<style>
+		body {
+		  background-image: url('static/register2.jpg');
+		  height:10px;
+		}
+	</style> 
+</head>
+<body>
+	
+
+
+      
 
 <!--Register--> 
-<div class="container py-5">
-	<h1>Register</h1>
+<div class="container py-5" style="position:relative; top:25px; left=200px">
+	<h1 style="position: relative; left: 450px; color:brown;">Register</h1>
 	<form action="register" method="POST">
 		{% csrf_token %}
 		{{ register_form|crispy }}                    
@@ -23,4 +41,6 @@
 </div>
 
 
-{% endblock %}
+</body>
+</html>
+

@@ -10,6 +10,8 @@
         <thead>
           <tr>
             <th>Username</th>
+            <th>First Name</th>
+            <th>Last Name</th>
             <th>Phone</th>
             <th>Street Address</th>
             <th>Zip_code</th>
@@ -24,27 +26,19 @@
       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           
-          {% for i in profiles %} 
-         
-         
-            <td>{{i.user}}</td>
-            <td>{{i.phone}}</td>
-            <td>{{i.street_address}} </td>
-            <td>{{i.zip_code}}</td>
-            <td>{{i.city}}</td>
-            <td>{{i.country}}</td>
-            <td><a href="loanrequests?customer={{i.id}}">{{'See Loan Requests'}}</a></td>
+          {% for customer in profiles %}        
+            <td>{{customer.user.first_name}}</td>
+            <td>{{customer.user.last_name}}</td>
+            <td>{{customer.phone}}</td>
+            <td>{{customer.street_address}} </td>
+            <td>{{customer.zip_code}}</td>
+            <td>{{customer.city}}</td>
+            <td>{{customer.country}}</td>
+            <td><a href="loan-requests?customer={{customer.id}}">{{'See Loan Requests'}}</a></td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
-  </section>
-  
-  
-  <!-- follow me template -->
-  <div class="made-with-love">
-    Made with
-    <i>♥</i> by
-    <a target="_blank" href="https://codepen.io/nikhil8krishnan">Nikhil Krishnan</a>
-  </div>
+    <button class="button button1"><a href="/">Back</a></button><br>
+  </section> 
