@@ -3,6 +3,7 @@ from django_countries.fields import CountryField
 from django import forms
 from .models import User,CustomerProfile, Loan
 from django.forms import ModelForm
+from django.contrib.auth.models import Group
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     role = forms.ChoiceField(
@@ -30,23 +31,30 @@ class NewUserForm(UserCreationForm):
         user.email = self.cleaned_data['email']
         user.is_customer = self.cleaned_data['role'] == "customer"
         user.is_agent = self.cleaned_data['role'] == "agent"
-                           
+
+        # Prevent user from login, until approved by admin
+        user.is_active = False
+
+        if user.is_agent:
+            user.is_staff = True
+
         if commit:
             user.save()
-            print(user.is_customer)
+
+            if user.is_agent:
+                agent_group = Group.objects.get(name='Agent')
+                agent_group.user_set.add(user)
             # Create customer profile for user
-            
             if user.is_customer:
                 CustomerProfile.objects.create(
-                    user=user, 
+                    user=user,
                     phone=self.cleaned_data['phone'],
                     street_address=self.cleaned_data['street_address'],
                     zip_code=self.cleaned_data['zip_code'],
                     city=self.cleaned_data['city'],
                     country=self.cleaned_data['country'],
                 )
-                
-                
+
         return user
 
 

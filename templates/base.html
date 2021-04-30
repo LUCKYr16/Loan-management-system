@@ -14,15 +14,18 @@
       <link rel="stylesheet" href="{% static 'css/navbar.css' %}">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
       <script src="{% static 'JS/script.js' %}"></script>
+      
+     
    </head>
    <body>
       <div class="wrapper">
          <header>
             <nav>
+
                <div class="menu-icon">
                   <i class="fa fa-bars fa-2x"></i>
                </div>
-               <div class="logo">
+               <div class="logo" style="color:darkslategray">
                   {% if user.is_authenticated %}
                      Hello, {{user.first_name}}|LoanEasy
                   {%else%}
@@ -31,29 +34,41 @@
                </div>
                <div class="menu">
                   <ul>
-                     <li><a href="">Home</a></li>
-                       {% if user.is_authenticated and user.is_agent %}
-                        <li><a href="{% url 'applyloan' %}">Apply for loan</a></li>
-                        <li><a href="{% url 'profile' %}">Customers</a></li>
-                      {% endif %}
-                       {% if not user.is_authenticated %}
-                       <li><a href="{% url 'login' %}">Login / Signup</a></li>
-                       {% else %}
-                          <li><a href="{% url 'loan-requests' %}">Loan Requests</a></li>
-                          {% if user.is_customer %}
-                          <li><a href="{% url 'my-profile' %}">Profile</a></li>
-                          {% endif %}
-                          <li><a href="{% url 'logout' %}">Logout</a></li>
-                       {% endif %}
+                     <li><a href="/" >Home</a></li>
+                     {% if user.is_authenticated %}
+                     {% if user.is_agent or user.is_admin %}
+                     <li><a href="{% url 'customerprofile-list' %}">Customers</a></li>
+                     {% endif %}
+
+                     <li><a href="{% url 'loan-list' %}">Loan Requests</a></li>
+
+                     {% if user.is_agent or user.is_customer %}
+                     <li><a href="{% url 'loan-blank-form' %}">Apply for loan</a></li>
+                     {% if user.is_customer and user.customer %}
+                     <li><a href="{% url 'customerprofile-list' %}{{user.customer.id}}/">Profile</a></li>
+                     {% endif %}
+                     {% endif %}
+
+                     <li><a href="{% url 'logout' %}">Logout</a></li>
+                  {% else %}
+                   <li><a href="{% url 'login' %}">Login / Signup</a></li>
+                  {% endif %}
                   </ul>
                </div>
+               
             </nav>
-            {% block content %} {% endblock content %}
-{% block body %} {% endblock body %}
+            {% block content %}  {% endblock content %}
+             <!-- <section class="background" >
+              
+               <img src="static/register.jpg">
+               
+            </section>  -->
+            
          </header>
          
       </div>
       
+{% block body %} {% endblock body %}
    </body>
 </html>
     

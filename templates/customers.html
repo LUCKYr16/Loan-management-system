@@ -26,7 +26,7 @@
       <table cellpadding="0" cellspacing="0" border="0">
         <tbody>
           
-          {% for customer in profiles %}        
+          {% for customer in customers %}        
             <td>{{customer.user.first_name}}</td>
             <td>{{customer.user.last_name}}</td>
             <td>{{customer.phone}}</td>
@@ -34,11 +34,12 @@
             <td>{{customer.zip_code}}</td>
             <td>{{customer.city}}</td>
             <td>{{customer.country}}</td>
-            <td><a href="loan-requests?customer={{customer.id}}">{{'See Loan Requests'}}</a></td>
+            <td><a href="{% url 'loan-list' %}?customer={{customer.id}}">{{'See Loan Requests'}}</a></td>
+            <td><a href="{% url 'customerprofile-list' %}{{customer.id}}/edit/">Edit</a></td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
     </div>
-    <button class="button button1"><a href="/">Back</a></button><br>
+    <!-- <button class="button button1"><a href="/">Back</a></button><br> -->
   </section> 

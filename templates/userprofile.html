@@ -4,7 +4,7 @@
 
 {% block content %} 
 <link rel="stylesheet" href="{% static 'css/style.css' %}">
-<div class="page-content page-container" id="page-content" style="position: relative; top:100px;">
+<div class="page-content page-container" id="page-content" style="position: relative; top:100px">
     <div class="padding">
         <div class="row container d-flex justify-content-center">
             <div class="col-xl-6 col-md-12">
@@ -23,18 +23,18 @@
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400">{{user.customer.email}}</h6>
+                                        <h6 class="text-muted f-w-400">{{customer.user.email}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Phone</p>
-                                        <h6 class="text-muted f-w-400">{{user.customer.phone}}</h6>
+                                        <h6 class="text-muted f-w-400">{{customer.phone}}</h6>
                                     </div>
                                 </div>
                                 <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>
                                 <div class="row">
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Recent</p>
-                                        <h6 class="text-muted f-w-400">Sam Disuja</h6>
+                                        <h6 class="text-muted f-w-400">{{customer.user.first_name}} {{customer.user.last_name}}</h6>
                                     </div>
                                     <div class="col-sm-6">
                                         <p class="m-b-10 f-w-600">Most Viewed</p>

@@ -4,3 +4,8 @@ psycopg2
 python-dateutil
 django-countries
 django-crispy-forms
+Django>=3.0,<4.0
+psycopg2-binary>=2.8
+django-filter
+requests
+django-model-utils==3.1.2

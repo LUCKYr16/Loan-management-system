@@ -8,7 +8,7 @@ from dateutil.relativedelta import relativedelta
 from django.forms import ModelForm
 from model_utils import FieldTracker 
 
-TYPE =   [('house', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')]
+TYPE =   [('home', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')]
 
 STATUS = [('new','New'),('rejected','Rejeted'),('approved', 'Approved')]
 

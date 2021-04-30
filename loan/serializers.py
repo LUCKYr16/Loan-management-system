@@ -9,7 +9,13 @@ class CustomerSerializer(serializers.ModelSerializer):
 
 
 
+class CustomerLoanSerializer(serializers.ModelSerializer):
+    class Meta:
+         model = Loan
+         fields = ("loan_type", "amount", "tenure", "interest_rate", "customer")
+         read_only_fields =  ('customer','interest_rate')
+
 class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model = Loan
-        fields = "__all__"
+        fields = ("loan_type", "amount", "tenure", "interest_rate", "customer") 

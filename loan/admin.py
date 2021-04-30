@@ -11,7 +11,11 @@ class LoanAdmin(admin.ModelAdmin):
         'status', "emi", "amount_paid"
     )
     readonly_fields = ("emi", "start_date", "end_date", "principal_amount")
-
+    
+    def has_view_permission(self, request, obj=None):
+        if request.user.is_agent or request.user.is_admin():
+            return True
+            
     def get_readonly_fields(self, request, obj=None):
         if obj and not request.user.is_admin:
             return self.readonly_fields + ('status')

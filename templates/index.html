@@ -1,7 +1,68 @@
 {% extends 'base.html' %}
 
-{% block body %}
+{% block content%}
 
+<div class="contain">
+  <h1 class="display-4 fw-normal"style="position: relative;left: 100px; font-size:40px;font-family: Arial, Helvetica, Arial, sans-serif;color:darkslategray;">THE EASIEST </h1>
+  <h1 class="display-4 fw-normal" style="position: relative;right: 80px; font-size:50px ;color:darkslategray">LOAN APPLICATION PORTAL</h1>
+</div>
+<div class="album py-5 " >
+    <div class="container" >
 
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" >
+        
+        
+        <div class="col">
+          <div class="card shadow-sm" >
+              <img src="static/homeloan.jpeg" height="180px">
+            
+            <div class="card-body">
+              <p class="card-text">Home Loan</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                  <button type="button" class="btn btn-sm btn-outline-secondary">Know more</button>
+                  
+                </div>
+                <small class="text-muted">Verified</small>
+              </div>
+            </div>
+          </div>
+        </div>
+  
 
-{% endblock body %}
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="static/carloan.jpg" height="180px">
+
+            <div class="card-body">
+              <p class="card-text">Car Loan</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Know more</button>
+                </div>
+                <small class="text-muted">Verified</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col">
+          <div class="card shadow-sm">
+            <img src="static/personal.jpeg" height="180px">
+
+            <div class="card-body">
+              <p class="card-text">Personal Loan</p>
+              <div class="d-flex justify-content-between align-items-center">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-sm btn-outline-secondary">Know more</button>
+                </div>
+                <small class="text-muted">Verified</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}
