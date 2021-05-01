@@ -20,19 +20,19 @@ listing users, and making loan request on behalf of customer
 
 ## Important features
    
-. Only customers and agents can signup
-. Customer will be created in the database on signup
-. When agent would signup a request would to the the admin to approve the agent.
-. Admin and customer are by default approved but not agent
-. Agent can only login after being approved
-. An instance of admin is created initially in the database(username = admin, password = admin)
-. All the users can update their passwords and its length should be greater than 6
-. Agents can list all customers and admin can list all users
-. The interest on a loan would depend on the principle
-. Loan can be approved or rejected by admin only
-. Only agent can edit a loan if it is still not approved
-. Previous instance of the same loan is pushed inside the history before being edited
-. Loans can be listed according to filter
+1. Only customers and agents can signup
+2. Customer will be created in the database on signup
+3. When agent would signup a request would to the the admin to approve the agent.
+4. Admin and customer are by default approved but not agent
+5. Agent can only login after being approved
+6. An instance of admin is created initially in the database(username = admin, password = admin)
+7. All the users can update their passwords and its length should be greater than 6
+8. Agents can list all customers and admin can list all users
+9. The interest on a loan would depend on the principle
+10. Loan can be approved or rejected by admin only
+11. Only agent can edit a loan if it is still not approved
+12. Previous instance of the same loan is pushed inside the history before being edited
+13. Loans can be listed according to filter
 
 
 ## Technology used
