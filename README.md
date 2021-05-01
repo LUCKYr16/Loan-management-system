@@ -7,7 +7,7 @@ An API which facilitates the working of a minimal loan management system
 1. There are three types of users:- Customer, Agent, Admin
 2. Customer is the client who makes a request for the loan
 3. Agent is the middleman associated with the bank who has certain authourities such as edit loans,
-listing users, and making loan request on behalf of customer
+    listing users, and making loan request on behalf of customer
 4. Before accessing to these functions an agent has to get the approval by the admin of being an agent
 5. Admin is the highest authority who can approve or reject a loan and also the request by agent
 6. Customers and agents can Sign up
@@ -16,6 +16,11 @@ listing users, and making loan request on behalf of customer
 9. A loan has entities such as principle, interest rate, months to repay, emi and status
 10. The value of interest rate would depend on the value of principle
 11. The loan can have 3 kinds of status: Approved, New or Rejected
+12. The loan can be of three types home ,car and personal
+13. The interest rate is as follows:-
+    home loan-4%
+    car loan-6%
+    personal loan-8%
 
 
 ## Important features

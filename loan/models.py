@@ -1,15 +1,11 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.utils import timezone
-from datetime import datetime
-from django.conf import settings
 from django_countries.fields import CountryField
 from dateutil.relativedelta import relativedelta
-from django.forms import ModelForm
 from model_utils import FieldTracker 
 
 TYPE =   [('home', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')]
-
 STATUS = [('new','New'),('rejected','Rejeted'),('approved', 'Approved')]
 
 # Create your models here.
@@ -55,7 +51,7 @@ class CustomerProfile(BaseModel):
 class Loan(BaseModel):
     customer = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE)
     loan_type = models.CharField(max_length=50,choices=TYPE)
-    amount = models.DecimalField(max_digits=20, decimal_places=10)
+    amount = models.DecimalField(max_digits=20,decimal_places=10)
     tenure = models.IntegerField()
     interest_rate = models.DecimalField(max_digits=20,decimal_places=10)
     emi = models.DecimalField(max_digits=20, decimal_places=10, null=True, blank=True)

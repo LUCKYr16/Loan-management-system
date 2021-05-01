@@ -1,8 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django_countries.fields import CountryField
 from django import forms
-from .models import User,CustomerProfile, Loan
-from django.forms import ModelForm
+from .models import User,CustomerProfile
 from django.contrib.auth.models import Group
 
 

@@ -164,3 +164,5 @@ LOGOUT_REDIRECT_URL = "/"
 
 
 ALLOWED_HOSTS = ['*']
+
+INTEREST_RATE = { "home": 4, "car": 6, "personal": 8}
