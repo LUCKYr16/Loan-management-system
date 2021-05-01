@@ -47,7 +47,7 @@ An API which facilitates the working of a minimal loan management system
  ## Commands to run project
  1. Clone the project repo
  2. Go to project
- 3. Run the command 'docker-compose up' ont he terminal
+ 3. Run the command 'docker-compose up' on the terminal
  4. All the test cases will run
  5. You can log in to admin using username=admin, password=admin
 
