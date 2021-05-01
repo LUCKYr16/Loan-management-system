@@ -50,7 +50,9 @@
                   <td>{{loan.amount_paid}}</td>
                   <td>{{loan.no_of_emi_left}}</td>
                   <td>{{loan.status}}</td>
+                  {% if not user.is_customer %}
                   <td><a class=disabled href="{% url 'loan-list' %}{{loan.id}}/edit">Edit</a></td>
+                  {% endif %}
                 </tr>
                 
                 {% endfor %}

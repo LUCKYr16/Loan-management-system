@@ -763,33 +763,16 @@ class TestLoan(TestMixin):
         self.assertTrue(User.objects.filter(username="luckyr14").exists())
 
         user = User.objects.get(username="luckyr14")
-        self.assertFalse(user.is_active)
+        self.assertTrue(user.is_active)
         self.assertFalse(user.is_agent)
         self.assertTrue(user.is_customer)
 
         self.assertTrue(CustomerProfile.objects.filter(user=user.id).exists())
         self.assertTrue(user.customer)
 
-        # Try to login with above created user and it should fail
-        response = client.post(
-            '/accounts/login/', {
-                'username': "luckyr14",
-                'password': "getshitdone"
-            }
-        )
-        self.assertEqual(response.status_code, 200)
+       
 
-        current_user = auth.get_user(client)
-        self.assertFalse(current_user.is_authenticated)
-
-        response = client.get("/api/loan-requests/")
-        self.assertEqual(response.status_code, 403)
-
-        # Activate user
-        user.is_active = True
-        user.save()
-
-        # Try to login again and it should work
+        # Try to login and it should work
         response = client.post(
             '/accounts/login/', {
                 'username': "luckyr14",

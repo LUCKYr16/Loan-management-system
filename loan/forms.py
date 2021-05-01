@@ -36,7 +36,11 @@ class NewUserForm(UserCreationForm):
         user.is_agent = self.cleaned_data['role'] == "agent"
 
         # Prevent user from login, until approved by admin
-        user.is_active = False
+        if user.is_agent:
+            user.is_active = False
+
+        if user.is_customer:
+            user.is_active = True
 
         if commit:
             user.save()

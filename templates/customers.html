@@ -35,7 +35,9 @@
             <td>{{customer.city}}</td>
             <td>{{customer.country}}</td>
             <td><a href="{% url 'loan-list' %}?customer={{customer.id}}">{{'See Loan Requests'}}</a></td>
+            {% if not user.is_customer %}
             <td><a href="{% url 'customerprofile-list' %}{{customer.id}}/edit/">Edit</a></td>
+            {% endif %}
           </tr>
           {% endfor %}
         </tbody>
