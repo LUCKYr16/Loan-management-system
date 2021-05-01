@@ -5,7 +5,6 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /code
 
-ADD . /code
 
 COPY requirements.txt /code/
 
