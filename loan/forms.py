@@ -35,9 +35,6 @@ class NewUserForm(UserCreationForm):
         # Prevent user from login, until approved by admin
         user.is_active = False
 
-        if user.is_agent:
-            user.is_staff = True
-
         if commit:
             user.save()
 
@@ -56,31 +53,3 @@ class NewUserForm(UserCreationForm):
                 )
 
         return user
-
-
-class LoanInputForm(ModelForm):
-    #customer = forms.ModelChoiceField(queryset=None)
-    #loan_type = forms.ChoiceField(choices=(('house', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')), widget=forms.Select(),label="Loan type", required=True)
-    #amount = forms.DecimalField(required=True)
-    #tenure = forms.IntegerField(required=True)
-    #interest_rate = forms.DecimalField(required=True)
-    
-
-
-    class Meta:
-        model = Loan
-        fields = ['loan_type', 'amount', 'tenure', 'interest_rate']
-
-
-    def save(self, commit=True, user=None):
-
-        loan = super(LoanInputForm,self).save(commit=False)
-        if user and user.is_customer:
-            customer = CustomerProfile.objects.filter(user=user.id).first()
-        elif user and user.is_agent:
-            pass
-            #todo crete new user and customer profile for that user
-        print("heloooooooooooooooooooooo",customer)
-        loan.customer = customer
-        if commit:
-            loan.save()

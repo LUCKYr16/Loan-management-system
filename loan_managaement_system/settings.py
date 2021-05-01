@@ -80,7 +80,11 @@ WSGI_APPLICATION = 'loan_managaement_system.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'loan',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'db',
+        'PORT': 5432,
 
     }
 }
@@ -157,3 +161,6 @@ REST_FRAMEWORK = {
 }
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
+
+
+ALLOWED_HOSTS = ['*']

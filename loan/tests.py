@@ -705,6 +705,8 @@ class TestLoan(TestMixin):
         self.assertFalse(user.is_active)
         self.assertTrue(user.is_agent)
         self.assertFalse(user.is_customer)
+        self.assertFalse(user.is_staff)
+        self.assertTrue(user in Group.objects.get(name="Agent").user_set.all())
 
         # Try to login with above created user and it should fail
         response = client.post(
@@ -725,6 +727,8 @@ class TestLoan(TestMixin):
         user.is_active = True
         user.save()
 
+        self.assertTrue(user.is_staff)
+
         # Try to login again and it should work
         response = client.post(
             '/accounts/login/', {
@@ -739,7 +743,6 @@ class TestLoan(TestMixin):
 
         response = client.get("/api/loan-requests/")
         self.assertEqual(response.status_code, 200)
-        
 
     def test_0080_user_signup_as_customer(self):
         """

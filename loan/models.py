@@ -19,6 +19,11 @@ class User(AbstractUser):
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
 
+    def save(self, *args, **kwargs):
+        if self.is_active and self.is_agent:
+            self.is_staff = True
+        return super(User, self).save(*args, **kwargs)
+
     def is_admin(self):
         return self.is_superuser | bool(self.groups.filter(name__in=["Admin"]))
 
