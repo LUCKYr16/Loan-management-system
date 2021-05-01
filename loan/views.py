@@ -1,4 +1,5 @@
 import json
+from django.conf import settings
 from django.shortcuts import render,get_object_or_404
 from rest_framework.parsers import JSONParser
 from .models import CustomerProfile, Loan
@@ -29,6 +30,10 @@ from django.core.exceptions import PermissionDenied
 
 #Custome permissions for change in loan requests as well as for objects
 class CanEditLoanRequest(permissions.BasePermission):
+    # Function overriding
+
+    # User must be authenticated
+    # Only agent and customer can make a post request 
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
             return False
@@ -40,7 +45,9 @@ class CanEditLoanRequest(permissions.BasePermission):
             request.user.is_agent or request.user.is_admin() or
             request.user.is_customer
         )
-
+    
+    # Loan request cannot be edited after it is approved
+    # Only admin can make a delete request
     def has_object_permission(self, request, view, obj):
         if not request.user.is_authenticated:
             return False
@@ -108,10 +115,13 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
     queryset = CustomerProfile.objects.all()
     serializer_class = CustomerSerializer
     permission_classes = [IsOwnerOrAdmin, IsAuthenticated]
-    filter_backends = [SearchFilter,DjangoFilterBackend,OrderingFilter]
+    filter_backends = [DjangoFilterBackend]
     search_fields = ['city']
     filterset_fields = ['city','country']
     renderer_classes = [TemplateHTMLRenderer] 
+
+
+
 
     @action(methods=["GET", "POST"], detail=True, permission_classes=[IsOwnerOrAdmin, IsAuthenticated])
     def edit(self, request, pk):
@@ -158,12 +168,33 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
         Show all customers to agent and show customer only their
         record
         """
-        user = self.request.user
         queryset = super().get_queryset()
+
+
+        city = self.request.query_params.get('city',None)
+        if city is not None:
+            city = city
+            queryset =  queryset.filter(city=city)
+
+        country = self.request.query_params.get('country',None)
+        if country is not None:
+            country = country
+            queryset =  queryset.filter(country=country)
+        
+        
+        user = self.request.user
         if user.is_authenticated and (user.is_admin() or user.is_agent):
             return queryset
 
+       
+
         return queryset.filter(user=user.id)
+    
+    
+
+
+    
+
 
 
 #Loan request view set
@@ -171,6 +202,8 @@ class LoanModelViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
     permission_classes = [CanEditLoanRequest, IsAuthenticated]
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['start_date']
     renderer_classes = [TemplateHTMLRenderer]
 
     def get_serializer_class(self):
@@ -231,7 +264,7 @@ class LoanModelViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         if self.request.user.is_customer:
-            serializer.save(customer=self.request.user.customer, interest_rate=8)
+            serializer.save(customer=self.request.user.customer, interest_rate=settings.INTEREST_RATE[self.request.data['loan_type']])
         else:
             serializer.save()
 
@@ -260,9 +293,32 @@ class LoanModelViewSet(viewsets.ModelViewSet):
         Show all loan-requests to agent and show customer only their
         own loan-requests
         """
-        user = self.request.user
         queryset = super().get_queryset()
 
+        start_date = self.request.query_params.get('start_date',None)
+        if start_date is not None:
+            start_date = start_date
+            queryset =  queryset.filter(start_date__date=start_date)
+
+        end_date = self.request.query_params.get('end_date',None)
+        if end_date is not None:
+            end_date = end_date
+            queryset =  queryset.filter(end_date__date=end_date)
+
+
+        tenure = self.request.query_params.get('tenure',None)
+        if tenure is not None:
+            tenure = tenure
+            queryset =  queryset.filter(tenure=tenure)
+
+
+        status = self.request.query_params.get('status',None)
+        if status is not None:
+            status = status
+            queryset =  queryset.filter(status=status)
+
+
+        user = self.request.user
         if user.is_authenticated and (user.is_admin() or user.is_agent):
             return queryset
 

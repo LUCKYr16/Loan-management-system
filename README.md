@@ -37,7 +37,8 @@ An API which facilitates the working of a minimal loan management system
 10. Loan can be approved or rejected by admin only
 11. Only agent can edit a loan if it is still not approved
 12. Previous instance of the same loan is pushed inside the history before being edited
-13. Loans can be listed according to filter
+13. Loans can be listed according to filter(startdate,enddate etc)
+
 
 
 ## Technology used

@@ -16,12 +16,14 @@ class User(AbstractUser):
     is_customer = models.BooleanField(default=False)
     first_name = models.CharField(max_length=150)
     last_name = models.CharField(max_length=150)
-
+    
+    # if user is agent and active is true then staff is true
     def save(self, *args, **kwargs):
         if self.is_active and self.is_agent:
             self.is_staff = True
         return super(User, self).save(*args, **kwargs)
-
+    
+    #To check if user is admin
     def is_admin(self):
         return self.is_superuser | bool(self.groups.filter(name__in=["Admin"]))
 
@@ -69,6 +71,8 @@ class Loan(BaseModel):
     def __str__(self):
         return "Loan Request for %s" % self.customer.user.first_name
 
+
+    # After the loan request is approved, start_date and end_date is set,emi is calculated
     def save(self, *args, **kwargs):
         if self.status == "approved" and not self.start_date and not self.end_date:
             self.start_date = timezone.now()
@@ -81,7 +85,8 @@ class Loan(BaseModel):
         if self.status == "approved" and self.tracker.has_changed("principal_amount"):
             self.emi = self.calculate_emi()
         return super(Loan, self).save(*args, **kwargs)
-
+    
+    #To calculate emi based on principal amount and interest rate
     def calculate_emi(self):
         i = (self.principal_amount)*(self.interest_rate)*(self.tenure)/(12*100)
         emi = (self.principal_amount + i)/self.tenure

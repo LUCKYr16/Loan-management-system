@@ -59,8 +59,40 @@
               </tbody>
             </table>
           </div>
+          <button class="button button1" style="position: relative;left:1100px"><a href="/">Back</a></button><br>
+          <h3>Filters</h3>
+          <form action="{% url 'loan-list' %}" method="GET">
+            <label for="start_date">Start_Date: </label>
+            <input type="text" id="start_date" name="start_date"><br><br>
+            
+            <input type="submit" value="Search">
+          </form>
+          <br>
+          <form action="{% url 'loan-list' %}" method="GET">
+            <label for="end_date">End_Date: </label>
+            <input type="text" id="end_date" name="end_date"><br><br>
+            
+            <input type="submit" value="Search">
+          </form>
+            <br>
+          <form action="{% url 'loan-list' %}" method="GET">
+            <label for="tenure">Tenure: </label>
+            <input type="text" id="tenure" name="tenure"><br><br>
+            
+            <input type="submit" value="Search">
+          </form>
+
+          <br>
+          <form action="{% url 'loan-list' %}" method="GET">
+            <label for="status">Status: </label>
+            <input type="text" id="status" name="status"><br><br>
+            
+            <input type="submit" value="Search">
+          </form>
+
           
-          
+
+         
           
       
         </section>
