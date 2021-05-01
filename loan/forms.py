@@ -4,6 +4,9 @@ from django import forms
 from .models import User,CustomerProfile, Loan
 from django.forms import ModelForm
 from django.contrib.auth.models import Group
+
+
+#New user registration form 
 class NewUserForm(UserCreationForm):
     email = forms.EmailField(required=True)
     role = forms.ChoiceField(

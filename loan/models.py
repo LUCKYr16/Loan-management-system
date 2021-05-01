@@ -13,6 +13,8 @@ TYPE =   [('home', 'Home Loan'),('car', 'Car loan'),('personal', 'personal')]
 STATUS = [('new','New'),('rejected','Rejeted'),('approved', 'Approved')]
 
 # Create your models here.
+
+#User model
 class User(AbstractUser):
     is_agent = models.BooleanField(default=False)
     is_customer = models.BooleanField(default=False)
@@ -27,10 +29,14 @@ class User(AbstractUser):
     def is_admin(self):
         return self.is_superuser | bool(self.groups.filter(name__in=["Admin"]))
 
+
+#Base
 class BaseModel(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
+
+#Customer profiles
 class CustomerProfile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='customer')
     phone=models.CharField(max_length=10)
@@ -44,6 +50,8 @@ class CustomerProfile(BaseModel):
             self.user.first_name, self.user.last_name, self.city, self.country
         )
 
+
+#Loan model
 class Loan(BaseModel):
     customer = models.ForeignKey(CustomerProfile, on_delete=models.CASCADE)
     loan_type = models.CharField(max_length=50,choices=TYPE)

@@ -25,6 +25,9 @@ from rest_framework.decorators import action
 from django.shortcuts import get_object_or_404
 from django.core.exceptions import PermissionDenied
 
+
+
+#Custome permissions for change in loan requests as well as for objects
 class CanEditLoanRequest(permissions.BasePermission):
     def has_permission(self, request, view):
         if not request.user.is_authenticated:
@@ -80,6 +83,7 @@ def index(request):
     return render(request,'index.html')
 
 
+#Registration/signup
 def register_request(request):
     errors = []
     if request.method == "POST":
@@ -98,6 +102,8 @@ def register_request(request):
         context={"register_form":form, "errors": errors}
     )
 
+
+#Customer profiles view set
 class CustomerModelViewSet(viewsets.ModelViewSet):
     queryset = CustomerProfile.objects.all()
     serializer_class = CustomerSerializer
@@ -159,6 +165,8 @@ class CustomerModelViewSet(viewsets.ModelViewSet):
 
         return queryset.filter(user=user.id)
 
+
+#Loan request view set
 class LoanModelViewSet(viewsets.ModelViewSet):
     queryset = Loan.objects.all()
     serializer_class = LoanSerializer
