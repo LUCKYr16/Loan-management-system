@@ -51,4 +51,6 @@ An API which facilitates the working of a minimal loan management system
  3. Run the command 'docker-compose up' on the terminal
  4. All the test cases will run
  5. You can log in to admin using username=admin, password=admin
+ 6. If you register as an agent ,then before login, login into admin(username = admin,password = admin) and mark Active equal to true for that particular agent.
+
 
